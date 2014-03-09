@@ -11,23 +11,9 @@
 
 package com.pursuer.reader.easyrss.data;
 
-import com.google.android.apps.analytics.GoogleAnalyticsTracker;
-import com.pursuer.reader.easyrss.R;
-import com.pursuer.reader.easyrss.data.readersetting.SettingBrowserChoice;
-import com.pursuer.reader.easyrss.data.readersetting.SettingDescendingItemsOrdering;
-import com.pursuer.reader.easyrss.data.readersetting.SettingFontSize;
-import com.pursuer.reader.easyrss.data.readersetting.SettingHttpsConnection;
-import com.pursuer.reader.easyrss.data.readersetting.SettingImageFetching;
-import com.pursuer.reader.easyrss.data.readersetting.SettingImagePrefetching;
-import com.pursuer.reader.easyrss.data.readersetting.SettingImmediateStateSyncing;
-import com.pursuer.reader.easyrss.data.readersetting.SettingMarkAllAsReadConfirmation;
-import com.pursuer.reader.easyrss.data.readersetting.SettingMaxItems;
-import com.pursuer.reader.easyrss.data.readersetting.SettingNotificationOn;
-import com.pursuer.reader.easyrss.data.readersetting.SettingSyncMethod;
-import com.pursuer.reader.easyrss.data.readersetting.SettingTheme;
-import com.pursuer.reader.easyrss.data.readersetting.SettingVolumeKeySwitching;
-
 import android.content.Context;
+import com.google.analytics.tracking.android.GoogleAnalytics;
+import com.google.analytics.tracking.android.Tracker;
 
 public class GoogleAnalyticsMgr {
     final static private String UUID = "UA-25717510-1";
@@ -56,24 +42,24 @@ public class GoogleAnalyticsMgr {
         }
     }
 
-    final private GoogleAnalyticsTracker tracker;
+    final private Tracker tracker;
     final private Context context;
 
     private GoogleAnalyticsMgr(final Context context) {
-        this.tracker = GoogleAnalyticsTracker.getInstance();
+        this.tracker = GoogleAnalytics.getInstance(context).getTracker("?");
         this.context = context;
     }
 
     public void dispatch() {
-        tracker.dispatch();
+        tracker.close();
     }
 
     public void setCustomVar(final int index, final String name, final String value, final int scope) {
-        tracker.setCustomVar(index, name, value, scope);
+        //tracker.setCustomVar(index, name, value, scope);
     }
 
     public void startTracking() {
-        tracker.startNewSession(UUID, context);
+        /*tracker.startNewSession(UUID, context);
         tracker.setCustomVar(1, CUSTOM_VAR_VERSION, context.getString(R.string.Version));
         final DataMgr dataMgr = DataMgr.getInstance();
         {
@@ -108,14 +94,14 @@ public class GoogleAnalyticsMgr {
             buffer.append('_');
             buffer.append(new SettingVolumeKeySwitching(dataMgr).getData());
             tracker.setCustomVar(4, CUSTOM_VAR_READING_SETTING, buffer.toString());
-        }
+        }*/
     }
 
     public void trackEvent(final String category, final String action, final String label, final int value) {
-        tracker.trackEvent(category, action, label, value);
+        //tracker.trackEvent(category, action, label, value);
     }
 
     public void trackPageView(final String page) {
-        tracker.trackPageView(page);
+        //tracker.trackPageView(page);
     }
 }
