@@ -1,3 +1,19 @@
 bin/
 gen/
 *.apk
+
+
+
+#IntelliJ IDEA
+.idea
+*.iml
+*.ipr
+*.iws
+.idea/
+.settings/
+
+
+#Maven
+target
+release.properties
+pom.xml.*
